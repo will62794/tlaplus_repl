@@ -1,2 +1,3 @@
+*.pyc
 states/
 REPLSpec.tla
