@@ -21,13 +21,6 @@ class TLARepl(cmd.Cmd):
         	print "Error evaluating expression '" + expr + "'"
         return False
 
-    def completedefault(self, text, line, begidx, endidx):
-    	print text
-    	return ["willy", "bob"]
-
-    def do_EOF(self, line):
-    	print "EOF"
-        return True
 
 replCmd = TLARepl()
 replCmd.cmdloop()
