@@ -18,8 +18,13 @@ tla_tools_zip="tla.zip"
 
 # Download and unzip TLA+ Tools.
 mkdir -p tlatools
-curl -o "$tla_tools_dir/$tla_tools_zip" $tla_tools_link
-unzip "$tla_tools_dir/$tla_tools_zip" -d "$tla_tools_dir"
+echo "Downloading the TLA+ tools from '$tla_tools_link'."
+curl -s -o "$tla_tools_dir/$tla_tools_zip" $tla_tools_link
+echo "Unpacking the TLA+ tools."
+unzip -q -o "$tla_tools_dir/$tla_tools_zip" -d "$tla_tools_dir"
 
 # Set Java CLASSPATH correctly.
 export CLASSPATH=$CLASSPATH:"$(pwd)/tlatools/tla"
+
+echo "Added '$(pwd)/tlatools/tla' to the CLASSPATH environment variable."
+echo "Setup complete! Check that the TLA+ tools were installed by running 'java tlc2.TLC'."
