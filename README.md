@@ -1,11 +1,11 @@
 # TLA+ REPL
 
-This is a Python based REPL for evaluating TLA+ expressions. It provides an easy, interactive way to debug TLA+ expressions and can help when learning or experimenting with TLA+. It uses the TLC model checker to evaluate TLA+ expressions.
+This is a Python based REPL for evaluating TLA+ expressions. It provides an easy, interactive way to debug TLA+ expressions and can help when learning or experimenting with the language. It uses the TLC model checker to evaluate TLA+ expressions.
 
 Usage:
 
 ```
-python tla_repl.py
+$ python tla_repl.py
 ```
 
 Demo:
