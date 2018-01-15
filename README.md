@@ -19,7 +19,7 @@ The evaluation of expressions in the interactive REPL is a bit slow, since it st
 In order to use the REPL, you must have the TLA+ tools installed and they must be present in your `CLASSPATH` environment variable. There is a helper script that will download the tools and add their directory to your `CLASSPATH` environment for the current running shell. You can run:
 
 ```
-source setup_tlc.sh
+$ source setup_tlc.sh
 ```
 
 to set up the tools. After that, you should be able to start up the REPL and it should work correctly. You can always test if you have the TLA+ tools installed correctly by running the following command, which invokes the TLC model checker: 
