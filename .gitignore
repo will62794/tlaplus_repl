@@ -1,3 +1,4 @@
 *.pyc
 states/
 REPLSpec.tla
+MC.cfg

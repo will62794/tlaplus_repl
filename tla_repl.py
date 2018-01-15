@@ -2,9 +2,11 @@ import cmd
 
 from tlcutil import prepare_tla_eval, tlc_eval
 
-intro_text = """ -------\nWelcome to the TLA+ REPL! This REPL uses the TLC model checker
-to evaluate TLA+ expressions interactively. It is meant as an
-aid for learning TLA+ and debugging TLA+ specs.\n-------"""
+intro_text = ("-" * 85 + "\n")
+intro_text += """ Welcome to the TLA+ REPL! This REPL uses the TLC model checker
+ to evaluate TLA+ expressions interactively. It is meant as an
+ aid for learning TLA+ and debugging TLA+ specs."""
+intro_text += ("\n" + "-" * 85)
 
 class TLARepl(cmd.Cmd):
     """TLA+ REPL that uses TLC to evaluate expressions."""
@@ -21,7 +23,8 @@ class TLARepl(cmd.Cmd):
         	print "Error evaluating expression '" + expr + "'"
         return False
 
-
-replCmd = TLARepl()
-replCmd.cmdloop()
+if __name__ == '__main__':
+    # Run the TLA+ REPL.
+    replCmd = TLARepl()
+    replCmd.cmdloop()
 
