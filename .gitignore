@@ -1,4 +1,7 @@
 *.pyc
+*.DS_Store
 states/
 REPLSpec.tla
 MC.cfg
+tla.zip
+tla/

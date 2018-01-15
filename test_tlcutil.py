@@ -1,12 +1,20 @@
 import tlcutil
+import unittest
 
 """ Simple tests of TLA+ expression evaluation using TLC. """
 
-def test_eval(tla_expr, expected):
-	tlcutil.prepare_tla_eval(tla_expr)
-	ret = tlcutil.tlc_eval(tla_expr)
-	assert ret["result"]==expected
+class TestTLCEval(unittest.TestCase):
 
-test_eval("2+2", "4")
-test_eval("{x*2 : x \\in {1,2,3}}", "{2, 4, 6}")
-test_eval("CHOOSE x \\in {1,2,3} : x>2", "3")
+	def eval_test(self, tla_expr, expected):
+		tlcutil.prepare_tla_eval(tla_expr)
+		ret = tlcutil.tlc_eval(tla_expr)
+		self.assertEqual(ret["result"], expected)
+
+	def test_basic_eval(self):
+		self.eval_test("2+2", "4")
+		self.eval_test("{x*2 : x \\in {1,2,3}}", "{2, 4, 6}")
+		self.eval_test("CHOOSE x \\in {1,2,3} : x>2", "3")
+		self.eval_test("(5<6) /\ (6>7)", "FALSE")
+
+if __name__ == '__main__':
+    unittest.main()

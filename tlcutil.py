@@ -1,3 +1,4 @@
+import subprocess
 from subprocess import check_output
 
 """ Utility functions for evaluating a TLA+ expression using the TLC model checker """
@@ -11,6 +12,7 @@ ASSUME  /\ PrintT("TLAREPL_START")
 	    /\ PrintT("TLAREPL_END")
 ============================================================================= """
 
+tlc_temp_dir = "tlarepl"
 temp_spec_name = "REPLSpec"
 
 def prepare_tla_eval(expr):
