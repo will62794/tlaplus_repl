@@ -8,4 +8,8 @@ Usage:
 python tla_repl.py
 ```
 
+Demo:
+
+[![asciicast](https://asciinema.org/a/l5U3vkqaGSvsYaR3UNVzL3WA3.png)](https://asciinema.org/a/l5U3vkqaGSvsYaR3UNVzL3WA3)
+
 The evaluation of expressions in the interactive REPL is a bit slow, since it just starts up a new run of the TLC model checker each time. The feedback loop is still considerably better than what is currently provided by the TLA+ Toolbox IDE. Eventually TLC may support some kind of 'interactive' mode natively, which would make it much easier to build a performant and robust REPL.
