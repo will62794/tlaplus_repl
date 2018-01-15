@@ -23,6 +23,12 @@ class TLARepl(cmd.Cmd):
         	print "Error evaluating expression '" + expr + "'"
         return False
 
+    def do_quit(self, expr):
+        # Exit the REPL loop.
+        print "Goodbye!"
+        return True
+
+
 if __name__ == '__main__':
     # Run the TLA+ REPL.
     replCmd = TLARepl()
