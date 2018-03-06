@@ -32,7 +32,7 @@ def tlc_eval(expr):
 	""" Run TLC to evaluate a TLA+ expression. """
 	args = ["-deadlock", "-config", "MC.cfg", ("%s.tla" % temp_spec_name)]
 	raw_out = check_output(["java", "tlc2.TLC"] + args)
-	lines = raw_out.split("\n")
+	lines = str.splitlines(raw_out)
 	try:
 		start = lines.index("\"TLAREPL_START\"")
 		end = lines.index("\"TLAREPL_END\"")
