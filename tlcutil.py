@@ -6,7 +6,7 @@ from subprocess import check_output
 # TLA+ Spec template that lets us evaluate and print arbitary expressions using TLC.
 tla_spec_template = """
 ------------------------- MODULE %s -------------------------
-EXTENDS Naturals, Sequences, Bags, FiniteSets, TLC
+EXTENDS Naturals, Reals, Sequences, Bags, FiniteSets, TLC
 ASSUME  /\ PrintT("TLAREPL_START")
 	    /\ PrintT(%s)
 	    /\ PrintT("TLAREPL_END")
