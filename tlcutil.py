@@ -1,5 +1,4 @@
-import subprocess
-from subprocess import check_output
+from subprocess import check_output, Popen, PIPE
 
 """ Utility functions for evaluating a TLA+ expression using the TLC model checker """
 
@@ -14,31 +13,44 @@ ASSUME  /\ PrintT("TLAREPL_START")
 
 tlc_temp_dir = "tlarepl"
 temp_spec_name = "REPLSpec"
+temp_cfg_name = "MC"
 
-def prepare_tla_eval(expr):
+def tmp_spec_path(tmpdir):
+	""" Return the path of the temporary TLA spec file. """
+	return "%s/%s.tla" % (tmpdir, temp_spec_name)	
+
+def tmp_cfg_path(tmpdir):
+	""" Return the path of the temporary TLC config  file. """
+	return "%s/%s.cfg" % (tmpdir, temp_cfg_name)
+
+def prepare_tla_eval(tmpdir, expr):
 	""" Creates a TLA+ spec that, when run with TLC prints the evaluation of the given expression 'expr'. """
+	
 	# Make spec file to evaluate and print given expression.
 	tla_eval_spec = tla_spec_template % (temp_spec_name, expr)
-	spec_file = open(("%s.tla" % temp_spec_name), 'w')
+	spec_file = open(tmp_spec_path(tmpdir), 'w')
 	spec_file.write(tla_eval_spec)
 	spec_file.close()
 
 	# Make dummy TLC config file
-	cfg_file = open("MC.cfg", 'w')
+	cfg_file = open(tmp_cfg_path(tmpdir), 'w')
 	cfg_file.write("")
 	cfg_file.close
 
-def tlc_eval(expr):
+def tlc_eval(tmpdir, expr):
 	""" Run TLC to evaluate a TLA+ expression. """
-	args = ["-deadlock", "-config", "MC.cfg", ("%s.tla" % temp_spec_name)]
-	raw_out = check_output(["java", "tlc2.TLC"] + args)
-	lines = str.splitlines(raw_out)
+
+	# Run TLC from inside the temp directory and capture the output.
+	args = ["-deadlock", "-config", ("%s.cfg" % temp_cfg_name), temp_spec_name]
+	process = Popen(["java", "tlc2.TLC"] + args, stdout=PIPE, stderr=PIPE, cwd=tmpdir)
+	stdout, stderr = process.communicate()
+	lines = str.splitlines(stdout)
 	try:
 		start = lines.index("\"TLAREPL_START\"")
 		end = lines.index("\"TLAREPL_END\"")
 		repl_lines = lines[start+1:end]
 		expr_res = "\n".join(repl_lines)
-		return {"raw_output": raw_out, "result": expr_res}
+		return {"raw_output": stdout, "result": expr_res}
 	except Exception as e:
 		return None
 

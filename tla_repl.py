@@ -1,4 +1,5 @@
 import cmd
+import tempfile
 from tlcutil import prepare_tla_eval, tlc_eval
 
 """ REPL for the TLA+ language. Uses the TLC model checker to evaluate
@@ -27,14 +28,18 @@ intro_text += ("\n" + "-" * 85)
 class TLARepl(cmd.Cmd):
     """TLA+ REPL that uses TLC to evaluate expressions."""
 
-    prompt = '(TLA+REPL) >>> '
-    intro = intro_text
+    def __init__(self, tmpdir):
+        cmd.Cmd.__init__(self)
+        self.prompt = "(TLA+REPL) >>> "
+        self.intro  = intro_text
+        # Directory to store tempfiles used for TLC expression evaluation.
+        self.tmpdir = tmpdir
 
     def default(self, expr):
         """ The default expression handler. """
         try:
-            prepare_tla_eval(expr)
-            ret = tlc_eval(expr)
+            prepare_tla_eval(self.tmpdir, expr)
+            ret = tlc_eval(self.tmpdir, expr)
         except Exception as e:
             print e
             print "Make sure you have the TLA+ Tools directory in your CLASSPATH."
@@ -52,7 +57,10 @@ class TLARepl(cmd.Cmd):
         return True
 
 if __name__ == '__main__':
+    # Create a temp directory to store TLA+ and TLC config files.
+    tmpdir = tempfile.mkdtemp()
+
     # Run the TLA+ REPL.
-    replCmd = TLARepl()
+    replCmd = TLARepl(tmpdir)
     replCmd.cmdloop()
 

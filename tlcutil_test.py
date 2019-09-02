@@ -1,13 +1,15 @@
 import tlcutil
 import unittest
+import tempfile
 
 """ Simple tests of TLA+ expression evaluation using TLC. """
 
 class TestTLCEval(unittest.TestCase):
 
 	def eval_test(self, tla_expr, expected):
-		tlcutil.prepare_tla_eval(tla_expr)
-		ret = tlcutil.tlc_eval(tla_expr)
+		tmpdir = tempfile.mkdtemp()
+		tlcutil.prepare_tla_eval(tmpdir, tla_expr)
+		ret = tlcutil.tlc_eval(tmpdir, tla_expr)
 		self.assertEqual(ret["result"], expected)
 
 	def test_basic_eval(self):
