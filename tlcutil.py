@@ -6,6 +6,7 @@ from subprocess import check_output, Popen, PIPE
 tla_spec_template = """
 ------------------------- MODULE %s -------------------------
 EXTENDS Naturals, Reals, Sequences, Bags, FiniteSets, TLC
+%s
 ASSUME  /\ PrintT("TLAREPL_START")
 	    /\ PrintT(%s)
 	    /\ PrintT("TLAREPL_END")
@@ -23,11 +24,13 @@ def tmp_cfg_path(tmpdir):
 	""" Return the path of the temporary TLC config  file. """
 	return "%s/%s.cfg" % (tmpdir, temp_cfg_name)
 
-def prepare_tla_eval(tmpdir, expr):
-	""" Creates a TLA+ spec that, when run with TLC prints the evaluation of the given expression 'expr'. """
+def prepare_tla_eval(tmpdir, context, expr):
+	""" Creates a TLA+ spec that, when run with TLC prints the evaluation of the given expression 'expr'. 
+	The given 'context' is a dictionary mapping definition names to their expressions, as strings."""
 	
 	# Make spec file to evaluate and print given expression.
-	tla_eval_spec = tla_spec_template % (temp_spec_name, expr)
+	context_str = " ".join(context.values())
+	tla_eval_spec = tla_spec_template % (temp_spec_name, context_str, expr)
 	spec_file = open(tmp_spec_path(tmpdir), 'w')
 	spec_file.write(tla_eval_spec)
 	spec_file.close()

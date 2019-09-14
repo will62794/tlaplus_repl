@@ -1,5 +1,6 @@
 import cmd
 import tempfile
+import re
 from tlcutil import prepare_tla_eval, tlc_eval
 
 """ REPL for the TLA+ language. Uses the TLC model checker to evaluate
@@ -34,11 +35,25 @@ class TLARepl(cmd.Cmd):
         self.intro  = intro_text
         # Directory to store tempfiles used for TLC expression evaluation.
         self.tmpdir = tmpdir
+        # The context for evaluating TLA+ repl expressions. It is initially empty.
+        # It can grow as new definitions are created in a repl session.
+        self.context = {}
 
     def default(self, expr):
         """ The default expression handler. """
         try:
-            prepare_tla_eval(self.tmpdir, expr)
+            # See if this is a new definition i.e. something like 'var == {1,2,3}'
+            # In that case, don't evaluate it, just add it to the context. Note that
+            # '\S' in a regex matches any non whitespace character.
+            regex = "(?P<def>\S+)( )?==.*"
+            m = re.match(regex, expr)
+            if m:
+                # Overwrite an existing definition if there is a name conflict.
+                self.context[m.group("def")] = expr
+                return False
+
+            # Evaluate the given expression.
+            prepare_tla_eval(self.tmpdir, self.context, expr)
             ret = tlc_eval(self.tmpdir, expr)
         except Exception as e:
             print e
