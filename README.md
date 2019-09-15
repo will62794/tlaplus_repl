@@ -40,7 +40,7 @@ Goodbye!
 
 Note that you can define variables that can be used later on in the session, by using the standard TLA+ syntax for definitions i.e. `var == <some_expr>`.
 
-The evaluation of expressions in the interactive REPL is a bit slow, since it starts up a new instance of the TLC model checker each time. It also does not yet support any persistence within the same REPL session. That is, each expression is evaluated in isolation, and so earlier definitions will not be used in later expressions. The feedback loop for experimentation is still considerably better than what is currently provided by the TLA+ Toolbox IDE. Eventually TLC may support some kind of "interactive" mode natively, which would make it much easier to build a performant and robust REPL.
+The evaluation of expressions in the interactive REPL is a bit slow, since it starts up a new instance of the TLC model checker each time. The feedback loop for experimentation is still considerably better than what is currently provided by the TLA+ Toolbox IDE. Eventually TLC may support some kind of "interactive" mode natively, which would make it much easier to build a performant and robust REPL.
 
 # Setup
 
