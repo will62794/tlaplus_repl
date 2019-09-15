@@ -66,6 +66,11 @@ class TLARepl(cmd.Cmd):
         	print "Error evaluating expression '" + expr + "'"
         return False
 
+    def do_context(self, expr):
+        """ Shows what definitions exist in the current context. """
+        for defn in self.context:
+            print self.context[defn]
+
     def do_quit(self, expr):
         # Exit the REPL loop.
         print "Goodbye!"
