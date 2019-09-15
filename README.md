@@ -8,9 +8,37 @@ Usage:
 $ python tla_repl.py
 ```
 
-Demo:
+Here is an example of evaluating expressions in a REPL session:
 
-[![asciicast](https://asciinema.org/a/1LgatXgCScOo6qk9kgyteg8kU.svg)](https://asciinema.org/a/1LgatXgCScOo6qk9kgyteg8kU)
+```
+-------------------------------------------------------------------------------------
+ Welcome to the TLA+ REPL! This REPL uses the TLC model checker
+ to evaluate TLA+ expressions interactively. It is meant as an
+ aid for learning TLA+ and debugging TLA+ specs.
+-------------------------------------------------------------------------------------
+(TLA+REPL) >>> 2 + 2
+4
+(TLA+REPL) >>> {1,2,3} \X {3,4,5}
+{ <<1, 3>>,
+  <<1, 4>>,
+  <<1, 5>>,
+  <<2, 3>>,
+  <<2, 4>>,
+  <<2, 5>>,
+  <<3, 3>>,
+  <<3, 4>>,
+  <<3, 5>> }
+(TLA+REPL) >>> CHOOSE x \in {1,2,3,4} : x > 2
+3
+(TLA+REPL) >>> S == {1,2,3}
+(TLA+REPL) >>> T == {4,5,6}
+(TLA+REPL) >>> S \cup T
+{1, 2, 3, 4, 5, 6}
+(TLA+REPL) >>> quit
+Goodbye!
+```
+
+Note that you can define variables that can be used later on in the session, by using the standard TLA+ syntax for definitions i.e. `var == <some_expr>`.
 
 The evaluation of expressions in the interactive REPL is a bit slow, since it starts up a new instance of the TLC model checker each time. It also does not yet support any persistence within the same REPL session. That is, each expression is evaluated in isolation, and so earlier definitions will not be used in later expressions. The feedback loop for experimentation is still considerably better than what is currently provided by the TLA+ Toolbox IDE. Eventually TLC may support some kind of "interactive" mode natively, which would make it much easier to build a performant and robust REPL.
 
