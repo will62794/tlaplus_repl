@@ -45,7 +45,7 @@ class TLARepl(cmd.Cmd):
             # See if this is a new definition i.e. something like 'var == {1,2,3}'
             # In that case, don't evaluate it, just add it to the context. Note that
             # '\S' in a regex matches any non whitespace character.
-            regex = "(?P<def>\S+)( )?==.*"
+            regex = "(?P<def>.*?)\W*==.*"
             m = re.match(regex, expr)
             if m:
                 # Overwrite an existing definition if there is a name conflict.
