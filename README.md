@@ -1,5 +1,7 @@
 # TLA+ REPL
 
+**June 2020 Update**: The [newest versions](https://github.com/tlaplus/tlaplus/commit/97afa3c6952e343ee2409366a668ba12afceeef4) of TLC include a built in REPL that provides most of the same functionality provided in this Python tool with considerably lower evaluation latency. You can use it by running `java -cp tla2tools.jar tlc2.REPL` from the command line.
+
 This is a Python based REPL for evaluating TLA+ expressions. It provides an easy, interactive way to debug TLA+ expressions and can help when learning or experimenting with the language. It uses the TLC model checker to evaluate TLA+ expressions.
 
 Usage:
