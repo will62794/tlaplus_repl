@@ -1,5 +1,7 @@
 # TLA+ REPL
 
+**August 2023 Update**: In addition to the [REPL](https://github.com/tlaplus/tlaplus/blob/0e41129ebaf346dd6b2ee46a9dc977aaf954a2d0/tlatools/org.lamport.tlatools/src/tlc2/REPL.java) that is now included in TLC, see also the [web-based REPL prototype](https://will62794.github.io/tla-web/#!/home?specpath=./specs/repl.tla&repl=true), which provides most of the same functionality with faster evaluation speed and without a need to install any TLA+ tools locally.
+
 **June 2020 Update**: The [newest versions](https://github.com/tlaplus/tlaplus/commit/97afa3c6952e343ee2409366a668ba12afceeef4) of TLC include a built in REPL that provides most of the same functionality provided in this Python tool with considerably lower evaluation latency. You can use it by running `java -cp tla2tools.jar tlc2.REPL` from the command line.
 
 ----
